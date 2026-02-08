@@ -1,111 +1,131 @@
-# IESA–NXP DeepTech Hackathon  
+# IESA–NXP DeepTech Hackathon 2026  
 ## Edge-AI-Based Defect Classification System for Semiconductor Images
 
-### Overview
+---
+
+## 📌 Overview
 This project is developed as part of the **IESA–NXP DeepTech Hackathon 2026**.  
-The objective is to design an **Edge-AI-powered system** capable of detecting and classifying defects in semiconductor wafer and die images in real time, while operating under **low-power edge constraints**.
+The goal is to build a **real-time Edge-AI system** capable of detecting and classifying **semiconductor wafer and die defects** under **low-power edge constraints**, while maintaining high accuracy and low latency.
 
-The solution focuses on balancing **accuracy, latency, and computational efficiency**, reflecting real-world semiconductor manufacturing environments.
-
----
-
-### Problem Statement
-Modern semiconductor fabrication generates massive volumes of microscopic inspection images. Traditional cloud-based or manual inspection systems suffer from high latency, bandwidth limitations, and poor scalability.
-
-This project aims to:
-- Automatically detect defects in semiconductor wafer/die images
-- Classify defects into predefined categories using AI/ML techniques
-- Run efficiently on low-power edge devices without cloud dependency
+The solution demonstrates how **on-device AI inference** can significantly improve inspection speed and quality in modern semiconductor manufacturing.
 
 ---
 
-### Defect Classes
-The system targets a minimum of **8 classes**, including:
+## 🧠 Problem Statement
+Semiconductor fabrication involves hundreds of tightly controlled steps, where even microscopic defects can lead to device failure. Traditional inspection systems rely on centralized servers or manual review, which suffer from:
 
-- Clean (No defect)
-- Opens
-- Bridges
-- CMP 
-- Oxide Defect Thickness
-- Incomplete Etch
-- Pattern Collapse
-- Other
+- High latency
+- Bandwidth bottlenecks
+- Poor scalability
+- High infrastructure cost
 
-Images are processed in **grayscale (single-channel)** format to optimize edge deployment.
+This project addresses these challenges by deploying a **lightweight AI model directly on edge hardware**, enabling **fast, reliable, and scalable defect classification**.
 
 ---
 
-### Dataset
-- Images - 1048
-- Balanced class distribution
-- Sources: Public datasets and curated samples
-- Image type: Semiconductor wafer and die inspection images
+## 🗂 Dataset
+
+### Classes (8)
+The dataset is organized into the following defect categories:
+
+- **Clean**
+- **Bridge**
+- **Open**
+- **CMP**
+- **Incomplete Etch**
+- **Pattern Collapse**
+- **Oxide Defect Thickness**
+- **Other**
 
 ---
 
-### Methodology
-1. **Data Collection & Preprocessing**
-   - Image resizing and normalization
-   - Grayscale conversion
-   - Dataset balancing and augmentation
+### Dataset Details
+- **Total images:** 1120  
+- **Classes:** 8  
+- **Images per class:** ~140 (balanced)  
+- **Image type:** Grayscale  
+- **Resolution:** 224 × 224  
 
-2. **Model Development**
-   - Framework: TensorFlow / PyTorch
-   - Language: Python
-   - Approach: Custom CNN / Transfer Learning
-   - Optimization for model size and inference speed
-
-3. **Evaluation**
-   - Accuracy
-   - Precision
-   - Recall
-   - Confusion Matrix
-   - Tested on both user-selected and hackathon-provided datasets
-
-4. **Edge Deployment (Software Only)**
-   - Model exported to **ONNX format**
-   - Ported using **NXP eIQ AI Development Environment**
-   - Target platform: **NXP i.MX RT series**
-   - No physical hardware used (as per hackathon scope)
+Sample defect images are included in the repository for reference.
 
 ---
 
-### Deliverables
-- Curated dataset (.zip)
-- Trained ML model (ONNX format)
-- Evaluation metrics and confusion matrices
-- Prediction results on hackathon test images
-- NXP eIQ model stack output
-- Complete source code
-- Documentation of methodology and future scope
+## 🏗 Model Architecture
+
+- **Base Model:** MobileNetV2 (ImageNet pretrained)
+- **Custom Classification Head**
+- **Trainable Parameters:** ~175K
+- Designed for **low memory footprint** and **high inference speed**, making it suitable for edge deployment.
 
 ---
 
-### Tech Stack
-- **Programming Language:** Python  
-- **ML Frameworks:** TensorFlow / PyTorch  
-- **Model Format:** ONNX  
-- **Edge AI Toolkit:** NXP eIQ  
-- **Domain:** Semiconductor Manufacturing, Edge AI
+## 🏋️ Training Details
+
+- **Framework:** TensorFlow 2.x
+- **Optimizer:** Adam (learning rate = 0.001)
+- **Loss Function:** Sparse Categorical Crossentropy
+- **Data Augmentation:**
+  - Horizontal & vertical flip
+  - Rotation
+  - Zoom
+  - Brightness adjustment
+  - Contrast adjustment
+- **Training Time:** ~2 hours on MacBook M2
 
 ---
 
-### Project Status
-🚧 **Work in Progress**  
-Model training, optimization, and edge deployment are currently under development.
+## 📊 Results
+
+| Metric | Value |
+|------|------|
+| **Test Accuracy** | **91.88%** |
+| **Precision** | 91.97% |
+| **Recall** | 91.85% |
+| **F1-Score** | 91.80% |
+
+The model shows strong generalization across all defect classes.
 
 ---
 
-### Team
-- **Asthaasu** – Project Lead & Developer
+## ⚡ Edge Deployment
+
+- **Target Hardware:** NXP i.MX RT1170
+- **Model Format:** TensorFlow Lite (INT8 quantized)
+- **Model Size:** **0.22 MB**
+- **Inference Speed:** **560 FPS**
+- **Latency:** **~1.79 ms per inference**
+
+The quantized model meets real-time inspection requirements while maintaining high accuracy.
 
 ---
 
-### References
+## 🚧 Challenges Faced & Solutions
+
+### 1. Dataset Variability
+- **Challenge:** Class imbalance and defect variability  
+- **Solution:** Heavy data augmentation and strict class balancing
+
+### 2. Edge Constraints
+- **Challenge:** Model size and inference speed limitations  
+- **Solution:** MobileNetV2 backbone + INT8 quantization
+
+---
+
+## 🧪 Project Status
+✅ Model trained and evaluated  
+✅ Edge-optimized model generated  
+🚧 Further testing and documentation in progress
+
+---
+
+## 🔗 References
 - NXP eIQ AI Development Environment  
 - IESA–NXP DeepTech Hackathon 2026 Problem Statement
 
 ---
 
-### Acknowledgements
-This project is developed as part of the **IESA–NXP DeepTech Hackathon**, aiming to explore practical applications of Edge AI in semiconductor manufacturing.
+## 🙏 Acknowledgements
+This project was developed as part of the **IESA–NXP DeepTech Hackathon 2026**, focusing on practical applications of **Edge AI in semiconductor manufacturing**.
+
+
+📁 Folder structure:
